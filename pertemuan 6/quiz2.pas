@@ -1,63 +1,76 @@
-uses crt, math;
+ uses crt, math;
 
-{ Function untuk menentukan apakah suatu bilangan prima atau tidak }
+{ Function apakah bilangan prima atau tidak }
 function IsPrime(n: integer): boolean;
-
 var
   i, batas: integer;
 begin
-// TODO 1: Handle bilangan kurang dari 2
+  { TODO 1: Bilangan kurang dari 2 bukan bilangan prima
+  
+    (karena 0, 1, dan bilangan negatif bukan bilangan prima) }
   if (n < 2) then
   begin
     IsPrime := false;
     exit;
   end;
 
-// TODO 2: Handle bilangan 2
+  { TODO 2: Bilangan 2 adalah bilangan prima
+   
+    (bilangan prima genap cuma satu satunya}
   if (n = 2) then
   begin
     IsPrime := true;
     exit;
   end;
 
-// TODO 3: Handle bilangan genap
+  { TODO 3: Jika bilangan genap 
+  (selain 2), pasti bukan prima }
   if (n mod 2 = 0) then
   begin
     IsPrime := false;
     exit;
   end;
-  
-// TODO 4: Cek faktor ganjil sampai akar kuadrat n
-    batas := trunc(sqrt(n)); // membuat batasan cek sampai akar kuadrat berapa
-   i := 3;
+
+  { TODO 4: Mengecek faktor-faktor ganjil mulai dari 3 sampai akar kuadrat dari n. 
+   Jika ada yang habis membagi n, berarti bukan bilangan prima.}
+   
+  batas := trunc(sqrt(n));  { batas pemeriksaan = akar kuadrat }
+  i := 3;                    { mulai dari bilangan ganjil pertama }
+
   while (i <= batas) do
   begin
+    { jika n habis dibagi i (tidak ada sisa) → bukan prima }
     if (n mod i = 0) then
     begin
       IsPrime := false;
       exit;
     end;
-    i := i + 2; // Cek bilangan ganjil berikutnya (5, 7, 9, dst.)
+
+    i := i + 2;  { loncat/pindah ke bilangan selanjutnya }
   end;
 
-// TODO 5: Return true jika lolos semua pengecekan
+  { TODO 5: Jika tidak ada faktor yang membagi n,
+
+            berarti n adalah bilangan prima }
   IsPrime := true;
 end;
 
-{ Program Utama }
+{ ====================== PROGRAM UTAMA ====================== }
 var
-nilai: integer;
-
+  nilai: integer;
 begin
   clrscr;
-// minta user masukkan nilai
-    write('Masukkan nilai yang ingin di cek nilai primanya: '); readln(nilai);
 
-// Memanggil function IsPrime dan menampilkan hasilnya
-     writeln;
-    if IsPrime(nilai) then
-     writeln(nilai, ' adalah bilangan prima.')
-    else
-     writeln(nilai, ' bukan bilangan prima.'); 
-    
+  { meminta masukan dari user (input) }
+  write('Masukkan nilai yang ingin dicek nilai primanya: ');
+  readln(nilai);
+
+  writeln;
+
+  { memanggil fungsi IsPrime lalu menampilkan hasilnya (output) }
+  if IsPrime(nilai) then
+    writeln(nilai, ' adalah bilangan prima.')
+  else
+    writeln(nilai, ' bukan bilangan prima.');
+
 end.
